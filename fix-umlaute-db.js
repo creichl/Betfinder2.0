@@ -144,6 +144,7 @@ async function main() {
     console.error('\n❌ Fehler:', error);
   } finally {
     await pool.end();
+    
     process.exit(0);
   }
 }
