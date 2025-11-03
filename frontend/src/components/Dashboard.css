@@ -142,26 +142,49 @@
 }
 
 .btn-action {
-  display: block;
   width: 100%;
-  padding: var(--spacing-sm);
-  margin: var(--spacing-xs) 0;
-  background: var(--gray-50);
-  border: 2px solid var(--gray-200);
-  border-radius: var(--radius-sm);
-  font-size: var(--text-sm);
+  padding: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: var(--transition-base);
-  text-align: left;
-  color: var(--gray-900);
-  font-weight: var(--font-medium);
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-bottom: 8px;
 }
 
 .btn-action:hover {
-  background: var(--primary-red);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-action:last-child {
+  margin-bottom: 0;
+}
+
+/* Admin Card Styling */
+.admin-card {
+  border: 2px solid #ff6b6b;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+}
+
+.admin-card .card-icon {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
   color: white;
-  border-color: var(--primary-red);
-  transform: translateX(5px);
+}
+
+.admin-card h3 {
+  color: #c92a2a;
+}
+
+.admin-card .btn-action {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+}
+
+.admin-card .btn-action:hover {
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
 }
 
 .feature-preview {
@@ -181,6 +204,35 @@
 
 .feature-preview .card-details strong {
   color: white;
+}
+
+.dashboard-footer {
+  text-align: center;
+  margin-top: var(--spacing-2xl);
+  padding: var(--spacing-lg) 0;
+  border-top: 1px solid var(--gray-200);
+  font-size: var(--text-sm);
+  color: var(--gray-500);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.dashboard-footer a {
+  color: var(--gray-600);
+  text-decoration: none;
+  font-weight: var(--font-medium);
+  transition: var(--transition-base);
+}
+
+.dashboard-footer a:hover {
+  color: var(--primary-red);
+  text-decoration: underline;
+}
+
+.dashboard-footer .separator {
+  color: var(--gray-400);
 }
 
 /* Responsive */

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { matchesAPI } from '../services/api';
 import './Matches.css';
 
 const Matches = () => {
+  const navigate = useNavigate();
   const [matches, setMatches] = useState([]);
   const [competitions, setCompetitions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -208,6 +210,9 @@ const Matches = () => {
   return (
     <div className="matches-container">
       <div className="matches-header">
+        <button className="back-button-header" onClick={() => navigate('/dashboard')}>
+          ← Zurück zum Dashboard
+        </button>
         <h2>⚽ Spiele</h2>
         <p>Finde und analysiere Fußballspiele</p>
       </div>

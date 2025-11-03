@@ -226,7 +226,7 @@ const AiAssistant = () => {
     <>
       {/* Floating Button */}
       <button className="ai-floating-button" onClick={() => setIsOpen(true)} title="KI-Assistent öffnen">
-        <span className="ai-icon">🤖</span>
+        <span className="ai-icon">💬</span>
         <span className="ai-label">Frag mich</span>
       </button>
 

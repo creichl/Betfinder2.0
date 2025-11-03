@@ -75,6 +75,12 @@ const Login = () => {
         <p className="auth-footer">
           Noch kein Konto? <Link to="/register">Jetzt registrieren</Link>
         </p>
+
+        <div className="legal-footer">
+          <Link to="/impressum">Impressum</Link>
+          <span className="separator">•</span>
+          <Link to="/datenschutz">Datenschutz</Link>
+        </div>
       </div>
     </div>
   );

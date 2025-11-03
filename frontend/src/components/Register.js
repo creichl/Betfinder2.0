@@ -162,6 +162,12 @@ const Register = () => {
         <p className="auth-footer">
           Bereits ein Konto? <Link to="/login">Jetzt einloggen</Link>
         </p>
+
+        <div className="legal-footer">
+          <Link to="/impressum">Impressum</Link>
+          <span className="separator">•</span>
+          <Link to="/datenschutz">Datenschutz</Link>
+        </div>
       </div>
     </div>
   );

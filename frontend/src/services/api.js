@@ -124,4 +124,58 @@ export const aiChatAPI = {
   }
 };
 
+// Stats API
+export const statsAPI = {
+  // Datenbankstatistiken abrufen
+  getStats: async () => {
+    const response = await api.get('/stats');
+    return response.data;
+  }
+};
+
+// Admin API
+export const adminAPI = {
+  // User-Verwaltung
+  getUsers: async (filters = {}) => {
+    const params = new URLSearchParams();
+    if (filters.page) params.append('page', filters.page);
+    if (filters.limit) params.append('limit', filters.limit);
+    if (filters.search) params.append('search', filters.search);
+    if (filters.status) params.append('status', filters.status);
+    
+    const response = await api.get(`/admin/users?${params.toString()}`);
+    return response.data;
+  },
+
+  updateUser: async (id, userData) => {
+    const response = await api.put(`/admin/users/${id}`, userData);
+    return response.data;
+  },
+
+  deactivateUser: async (id) => {
+    const response = await api.delete(`/admin/users/${id}`);
+    return response.data;
+  },
+
+  // Log-Verwaltung
+  getLogs: async (filters = {}) => {
+    const params = new URLSearchParams();
+    if (filters.page) params.append('page', filters.page);
+    if (filters.limit) params.append('limit', filters.limit);
+    if (filters.actionType) params.append('actionType', filters.actionType);
+    if (filters.userId) params.append('userId', filters.userId);
+    if (filters.startDate) params.append('startDate', filters.startDate);
+    if (filters.endDate) params.append('endDate', filters.endDate);
+    
+    const response = await api.get(`/admin/logs?${params.toString()}`);
+    return response.data;
+  },
+
+  // Admin-Statistiken
+  getAdminStats: async () => {
+    const response = await api.get('/admin/stats');
+    return response.data;
+  }
+};
+
 export default api;

@@ -3,6 +3,7 @@ const router = express.Router();
 const Anthropic = require('@anthropic-ai/sdk');
 const { pool } = require('../database');
 const { authenticateToken } = require('../middleware/auth');
+const { logActivity, ACTION_TYPES } = require('../services/logger');
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY
@@ -102,6 +103,9 @@ router.post('/', authenticateToken, async (req, res) => {
       return res.status(400).json({ error: 'Frage darf nicht leer sein' });
     }
 
+    // Log KI-Anfrage
+    await logActivity(req.user.userId, ACTION_TYPES.AI_QUERY, question, req.clientIp);
+
     // Claude API Call
     console.log('Frage:', question);
     
@@ -199,6 +203,7 @@ router.post('/', authenticateToken, async (req, res) => {
 
           return {
             ...match,
+            utcDate: match.utc_date,
             homeTeam: {
               id: match.home_team_id,
               name: match.home_team_name,

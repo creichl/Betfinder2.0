@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const { pool } = require('../database');
 const { authenticateToken, JWT_SECRET } = require('../middleware/auth');
+const { logActivity, ACTION_TYPES } = require('../services/logger');
 
 // ==========================================
 // POST /api/auth/register - Neuen User registrieren
@@ -51,6 +52,9 @@ router.post('/register',
       );
 
       const user = newUser.rows[0];
+
+      // Log Registrierung
+      await logActivity(user.id, ACTION_TYPES.REGISTER, `User ${username} registered`, req.clientIp);
 
       // Erstelle JWT Token
       const token = jwt.sign(
@@ -117,6 +121,8 @@ router.post('/login',
       // Prüfe Password
       const validPassword = await bcrypt.compare(password, user.password_hash);
       if (!validPassword) {
+        // Log fehlgeschlagener Login
+        await logActivity(null, ACTION_TYPES.LOGIN_FAILED, `Failed login attempt for ${email}`, req.clientIp);
         return res.status(401).json({ error: 'Ungültige Anmeldedaten' });
       }
 
@@ -125,6 +131,9 @@ router.post('/login',
         'UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = $1',
         [user.id]
       );
+
+      // Log erfolgreicher Login
+      await logActivity(user.id, ACTION_TYPES.LOGIN, `User ${user.username} logged in`, req.clientIp);
 
       // Erstelle JWT Token
       const token = jwt.sign(
@@ -244,6 +253,9 @@ router.put('/profile',
       const result = await pool.query(query, values);
       const user = result.rows[0];
 
+      // Log Profil-Update
+      await logActivity(req.user.userId, ACTION_TYPES.PROFILE_UPDATE, `Profile updated: ${updates.join(', ')}`, req.clientIp);
+
       res.json({
         message: 'Profil erfolgreich aktualisiert',
         user: {
@@ -306,6 +318,9 @@ router.post('/change-password',
         'UPDATE users SET password_hash = $1 WHERE id = $2',
         [newPasswordHash, req.user.userId]
       );
+
+      // Log Passwort-Änderung
+      await logActivity(req.user.userId, ACTION_TYPES.PASSWORD_CHANGE, 'Password changed', req.clientIp);
 
       res.json({ message: 'Passwort erfolgreich geändert' });
 
