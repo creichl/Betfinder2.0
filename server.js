@@ -33,10 +33,23 @@ app.use('/api/admin', adminRoutes);
 
 // Erste Test-Route
 app.get('/', (req, res) => {
-  res.json({ 
+  res.json({
     message: 'Fußball-Analyzer API läuft!',
     version: '1.0.0'
   });
+});
+
+// Test-Route für UTF-8 Encoding (ohne Auth)
+app.get('/api/test-encoding', async (req, res) => {
+  try {
+    const { pool } = require('./database');
+    const result = await pool.query(
+      "SELECT name FROM teams WHERE name LIKE '%Bayern%' OR name LIKE '%Köln%' OR name LIKE '%Nürnberg%' LIMIT 5"
+    );
+    res.json({ teams: result.rows });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // Server starten
