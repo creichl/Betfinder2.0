@@ -11,9 +11,13 @@ const pool = new Pool({
 });
 
 // UTF-8 Encoding bei jeder neuen Connection setzen
-pool.on('connect', (client) => {
-  client.query('SET CLIENT_ENCODING TO UTF8');
-  console.log('✅ Mit Datenbank verbunden (UTF-8)');
+pool.on('connect', async (client) => {
+  try {
+    await client.query('SET CLIENT_ENCODING TO UTF8');
+    console.log('✅ Mit Datenbank verbunden (UTF-8)');
+  } catch (err) {
+    console.error('Fehler beim Setzen von UTF-8:', err);
+  }
 });
 
 pool.on('error', (err) => {
