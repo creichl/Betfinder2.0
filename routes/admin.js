@@ -246,13 +246,13 @@ router.put('/users/:id', async (req, res) => {
 });
 
 // ==========================================
-// DELETE /api/admin/users/:id - User deaktivieren
+// DELETE /api/admin/users/:id/deactivate - User deaktivieren
 // ==========================================
-router.delete('/users/:id', async (req, res) => {
+router.put('/users/:id/deactivate', async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Selbst-Löschung verhindern
+    // Selbst-Deaktivierung verhindern
     if (parseInt(id) === req.user.userId) {
       return res.status(400).json({ error: 'Du kannst dich nicht selbst deaktivieren' });
     }
@@ -280,8 +280,51 @@ router.delete('/users/:id', async (req, res) => {
     res.json({ message: 'User erfolgreich deaktiviert' });
 
   } catch (error) {
-    console.error('Delete User Error:', error);
+    console.error('Deactivate User Error:', error);
     res.status(500).json({ error: 'Fehler beim Deaktivieren des Users' });
+  }
+});
+
+// ==========================================
+// DELETE /api/admin/users/:id - User permanent löschen
+// ==========================================
+router.delete('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Selbst-Löschung verhindern
+    if (parseInt(id) === req.user.userId) {
+      return res.status(400).json({ error: 'Du kannst dich nicht selbst löschen' });
+    }
+
+    // Hole User-Info vor dem Löschen
+    const userResult = await pool.query(
+      'SELECT username FROM users WHERE id = $1',
+      [id]
+    );
+
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ error: 'User nicht gefunden' });
+    }
+
+    const username = userResult.rows[0].username;
+
+    // Lösche User permanent
+    await pool.query('DELETE FROM users WHERE id = $1', [id]);
+
+    // Log Löschung
+    await logActivity(
+      req.user.userId, 
+      ACTION_TYPES.USER_EDIT, 
+      `Permanently deleted user ${username} (ID: ${id})`, 
+      req.clientIp
+    );
+
+    res.json({ message: 'User erfolgreich gelöscht' });
+
+  } catch (error) {
+    console.error('Delete User Error:', error);
+    res.status(500).json({ error: 'Fehler beim Löschen des Users' });
   }
 });
 

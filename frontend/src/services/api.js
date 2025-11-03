@@ -158,6 +158,11 @@ export const adminAPI = {
   },
 
   deactivateUser: async (id) => {
+    const response = await api.put(`/admin/users/${id}/deactivate`);
+    return response.data;
+  },
+
+  deleteUser: async (id) => {
     const response = await api.delete(`/admin/users/${id}`);
     return response.data;
   },

@@ -20,6 +20,7 @@ function AppContent() {
   const { user } = useAuth();
   const location = useLocation();
   const isAuthPage = ['/login', '/register', '/impressum', '/datenschutz'].includes(location.pathname);
+  const isAdminPage = location.pathname.startsWith('/admin');
 
   return (
     <>
@@ -79,8 +80,8 @@ function AppContent() {
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
       
-      {/* AI Assistant - nur auf geschützten Seiten */}
-      {user && !isAuthPage && <AiAssistant />}
+      {/* AI Assistant - nur auf geschützten Seiten (außer Admin-Bereich) */}
+      {user && !isAuthPage && !isAdminPage && <AiAssistant />}
     </>
   );
 }

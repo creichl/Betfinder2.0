@@ -106,6 +106,21 @@ const AdminUsers = () => {
     }
   };
 
+  const handleDelete = async (user) => {
+    if (!window.confirm(`⚠️ WARNUNG: User "${user.username}" permanent löschen?\n\nDiese Aktion kann NICHT rückgängig gemacht werden!`)) {
+      return;
+    }
+    
+    try {
+      await adminAPI.deleteUser(user.id);
+      alert('User erfolgreich gelöscht');
+      loadUsers();
+    } catch (error) {
+      console.error('Fehler beim Löschen:', error);
+      alert('Fehler beim Löschen: ' + (error.response?.data?.error || error.message));
+    }
+  };
+
   const formatDate = (dateString) => {
     if (!dateString) return 'Nie';
     return new Date(dateString).toLocaleString('de-DE');
@@ -202,6 +217,12 @@ const AdminUsers = () => {
                           🚫 Deaktivieren
                         </button>
                       )}
+                      <button
+                        className="btn-delete"
+                        onClick={() => handleDelete(user)}
+                      >
+                        🗑️ Löschen
+                      </button>
                     </td>
                   </tr>
                 ))}

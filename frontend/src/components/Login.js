@@ -31,7 +31,7 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-box">
-        <h2>Login</h2>
+        <h2>Login Betfinder 2.0</h2>
         <p className="auth-subtitle">Willkommen zurück!</p>
         
         {error && <div className="error-message">{error}</div>}
@@ -71,10 +71,6 @@ const Login = () => {
             {loading ? 'Wird eingeloggt...' : 'Einloggen'}
           </button>
         </form>
-
-        <p className="auth-footer">
-          Noch kein Konto? <Link to="/register">Jetzt registrieren</Link>
-        </p>
 
         <div className="legal-footer">
           <Link to="/impressum">Impressum</Link>
