@@ -12,6 +12,8 @@ const pool = new Pool({
   database: process.env.DB_NAME || 'football_db',
   password: process.env.DB_PASSWORD || 'postgres',
   port: process.env.DB_PORT || 5432,
+  // UTF-8 Encoding für korrekte Sonderzeichen
+  client_encoding: 'UTF8'
 });
 
 // Rate Limiting

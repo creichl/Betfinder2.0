@@ -8,6 +8,8 @@ const pool = new Pool({
   database: process.env.DB_NAME || 'betfinder',
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT || 5432,
+  // UTF-8 Encoding für korrekte Sonderzeichen
+  client_encoding: 'UTF8'
 });
 
 pool.on('connect', () => {
