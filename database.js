@@ -7,17 +7,15 @@ const pool = new Pool({
   host: process.env.DB_HOST || 'localhost',
   database: process.env.DB_NAME || 'betfinder',
   password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT || 5432
+  port: process.env.DB_PORT || 5432,
+  // UTF-8 Encoding direkt im Connection String
+  client_encoding: 'UTF8',
+  options: '-c client_encoding=UTF8'
 });
 
-// UTF-8 Encoding bei jeder neuen Connection setzen
-pool.on('connect', async (client) => {
-  try {
-    await client.query('SET CLIENT_ENCODING TO UTF8');
-    console.log('✅ Mit Datenbank verbunden (UTF-8)');
-  } catch (err) {
-    console.error('Fehler beim Setzen von UTF-8:', err);
-  }
+// Connection Event Handler
+pool.on('connect', (client) => {
+  console.log('✅ Mit Datenbank verbunden');
 });
 
 pool.on('error', (err) => {
