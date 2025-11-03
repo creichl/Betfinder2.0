@@ -93,22 +93,18 @@ router.post('/register',
 // ==========================================
 router.post('/login',
   [
-    body('email').isEmail().normalizeEmail(),
+    body('email').trim(),
     body('password').exists()
   ],
   async (req, res) => {
     try {
-      // Validierung
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
+      // Keine strikte Email-Validierung mehr, da auch Username erlaubt ist
 
       const { email, password } = req.body;
 
-      // Finde User
+      // Finde User (Email oder Username)
       const result = await pool.query(
-        'SELECT * FROM users WHERE email = $1 AND is_active = true',
+        'SELECT * FROM users WHERE (email = $1 OR username = $1) AND is_active = true',
         [email]
       );
 
