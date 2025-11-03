@@ -15,8 +15,14 @@ const PORT = 3001;
 
 // Middleware (=Hilfsfunktionen die bei jeder Anfrage laufen)
 app.use(cors());           // Erlaubt Anfragen von anderen Adressen
-app.use(express.json());   // Kann JSON-Daten verstehen
+app.use(express.json({ charset: 'utf-8' }));   // JSON mit UTF-8 Encoding
 app.use(ipLogger);         // Loggt IP-Adresse bei jedem Request
+
+// UTF-8 Content-Type Header für alle Responses
+app.use((req, res, next) => {
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  next();
+});
 
 // Routen
 app.use('/api/auth', authRoutes);
