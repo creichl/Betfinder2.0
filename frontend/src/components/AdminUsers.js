@@ -132,9 +132,9 @@ const AdminUsers = () => {
         <button className="btn-back" onClick={() => navigate('/dashboard')}>
           ← Zurück zum Dashboard
         </button>
-        <h1>👥 User-Verwaltung</h1>
+        <h1>User-Verwaltung</h1>
         <button className="btn-create" onClick={() => setCreatingUser(true)}>
-          ➕ Neuer User
+          + Neuer User
         </button>
       </div>
 
@@ -192,12 +192,12 @@ const AdminUsers = () => {
                     <td>{user.firstName} {user.lastName}</td>
                     <td>
                       <span className={`badge badge-${user.role}`}>
-                        {user.role === 'admin' ? '🔐 Admin' : '👤 User'}
+                        {user.role === 'admin' ? 'Admin' : 'User'}
                       </span>
                     </td>
                     <td>
                       <span className={`badge badge-${user.status}`}>
-                        {user.status === 'active' ? '✅ Aktiv' : '❌ Inaktiv'}
+                        {user.status === 'active' ? 'Aktiv' : 'Inaktiv'}
                       </span>
                     </td>
                     <td>{formatDate(user.createdAt)}</td>
@@ -207,21 +207,21 @@ const AdminUsers = () => {
                         className="btn-edit"
                         onClick={() => handleEdit(user)}
                       >
-                        ✏️ Bearbeiten
+                        Bearbeiten
                       </button>
                       {user.status === 'active' && (
                         <button
                           className="btn-deactivate"
                           onClick={() => handleDeactivate(user)}
                         >
-                          🚫 Deaktivieren
+                          Deaktivieren
                         </button>
                       )}
                       <button
                         className="btn-delete"
                         onClick={() => handleDelete(user)}
                       >
-                        🗑️ Löschen
+                        Löschen
                       </button>
                     </td>
                   </tr>
@@ -258,7 +258,7 @@ const AdminUsers = () => {
       {editingUser && (
         <div className="modal-overlay" onClick={() => setEditingUser(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>✏️ User bearbeiten</h2>
+            <h2>User bearbeiten</h2>
             
             <div className="form-group">
               <label>Username</label>
@@ -334,7 +334,7 @@ const AdminUsers = () => {
       {creatingUser && (
         <div className="modal-overlay" onClick={() => setCreatingUser(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>➕ Neuen User erstellen</h2>
+            <h2>Neuen User erstellen</h2>
             
             <div className="form-group">
               <label>Username *</label>
@@ -366,8 +366,8 @@ const AdminUsers = () => {
                 style={createForm.password && createForm.password.length < 6 ? {borderColor: '#f44336'} : {}}
               />
               {createForm.password && createForm.password.length < 6 && (
-                <small style={{color: '#f44336', fontSize: '12px', marginTop: '4px', display: 'block'}}>
-                  ⚠️ Passwort muss mindestens 6 Zeichen lang sein (aktuell: {createForm.password.length})
+                <small style={{color: '#6c757d', fontSize: '12px', marginTop: '4px', display: 'block'}}>
+                  Passwort muss mindestens 6 Zeichen lang sein (aktuell: {createForm.password.length})
                 </small>
               )}
             </div>

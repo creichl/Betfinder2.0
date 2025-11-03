@@ -95,22 +95,14 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      <nav className="navbar">
-        <div className="navbar-content">
-          <h1>⚽ Fußball Analyzer</h1>
-          <div className="navbar-actions">
-            <button 
-              className="btn-secondary" 
-              onClick={() => navigate('/dashboard')}
-            >
-              Dashboard
-            </button>
-            <button className="btn-logout" onClick={handleLogout}>
-              Abmelden
-            </button>
-          </div>
-        </div>
-      </nav>
+      <div className="profile-header-nav">
+        <button className="btn-back" onClick={() => navigate('/dashboard')}>
+          ← Zurück zum Dashboard
+        </button>
+        <button className="btn-logout" onClick={handleLogout}>
+          Abmelden
+        </button>
+      </div>
 
       <div className="profile-content">
         <div className="profile-header">
@@ -123,13 +115,13 @@ const Profile = () => {
             className={`tab-button ${activeTab === 'profile' ? 'active' : ''}`}
             onClick={() => setActiveTab('profile')}
           >
-            📝 Profil bearbeiten
+            Profil bearbeiten
           </button>
           <button 
             className={`tab-button ${activeTab === 'password' ? 'active' : ''}`}
             onClick={() => setActiveTab('password')}
           >
-            🔒 Passwort ändern
+            Passwort ändern
           </button>
         </div>
 

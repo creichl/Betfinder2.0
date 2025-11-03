@@ -1,11 +1,21 @@
 /* Admin.css - Styling für Admin-Komponenten */
 
+:root {
+  --slate: #475569;
+  --slate-dark: #334155;
+  --slate-light: #64748b;
+  --bg-gray: #f8f9fa;
+  --text-dark: #212529;
+  --text-gray: #6c757d;
+  --border-gray: #dee2e6;
+}
+
 .admin-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
   min-height: 100vh;
-  background: var(--gray-50);
+  background: var(--bg-gray);
 }
 
 .admin-header {
@@ -16,49 +26,48 @@
   padding: 20px;
   background: white;
   border-radius: 8px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .admin-header h1 {
   margin: 0;
-  font-size: 28px;
-  color: var(--gray-900);
+  font-size: 24px;
+  color: var(--text-dark);
+  font-weight: 600;
 }
 
 .btn-back {
   padding: 10px 20px;
-  background: var(--gray-600);
+  background: var(--slate);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   transition: all 0.2s;
 }
 
 .btn-back:hover {
-  background: var(--gray-700);
-  transform: translateY(-2px);
+  background: var(--slate-dark);
 }
 
 .btn-export,
 .btn-create {
   padding: 10px 20px;
-  background: #4CAF50;
+  background: var(--slate);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   transition: all 0.2s;
 }
 
 .btn-export:hover,
 .btn-create:hover {
-  background: #45a049;
-  transform: translateY(-2px);
+  background: var(--slate-dark);
 }
 
 /* Filters */
@@ -150,111 +159,85 @@
 .badge {
   display: inline-block;
   padding: 4px 12px;
-  border-radius: 12px;
+  border-radius: 4px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
 }
 
 .badge-admin {
-  background: #ff6b6b;
+  background: var(--slate);
   color: white;
 }
 
 .badge-user {
-  background: #4CAF50;
+  background: var(--slate-light);
   color: white;
 }
 
 .badge-active {
-  background: #4CAF50;
+  background: var(--slate);
   color: white;
 }
 
 .badge-inactive {
-  background: var(--gray-400);
+  background: #adb5bd;
   color: white;
 }
 
-.badge-green {
-  background: #4CAF50;
-  color: white;
-}
-
-.badge-red {
-  background: #f44336;
-  color: white;
-}
-
-.badge-blue {
-  background: #2196F3;
-  color: white;
-}
-
-.badge-purple {
-  background: #9C27B0;
-  color: white;
-}
-
+.badge-green,
+.badge-red,
+.badge-blue,
+.badge-purple,
 .badge-orange {
-  background: #FF9800;
+  background: var(--slate-light);
   color: white;
 }
 
 .badge-gray {
-  background: var(--gray-400);
+  background: #adb5bd;
   color: white;
 }
 
 /* Buttons in table */
 .btn-edit,
-.btn-deactivate {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  margin-right: 8px;
-  transition: all 0.2s;
-}
-
-.btn-edit {
-  background: #2196F3;
-  color: white;
-}
-
-.btn-edit:hover {
-  background: #1976D2;
-  transform: translateY(-2px);
-}
-
-.btn-deactivate {
-  background: #f44336;
-  color: white;
-}
-
-.btn-deactivate:hover {
-  background: #d32f2f;
-  transform: translateY(-2px);
-}
-
+.btn-deactivate,
 .btn-delete {
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   margin-right: 8px;
   transition: all 0.2s;
-  background: #9C27B0;
+}
+
+.btn-edit {
+  background: var(--slate);
+  color: white;
+}
+
+.btn-edit:hover {
+  background: var(--slate-dark);
+}
+
+.btn-deactivate {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-deactivate:hover {
+  background: #5a6268;
+}
+
+.btn-delete {
+  background: #495057;
   color: white;
 }
 
 .btn-delete:hover {
-  background: #7B1FA2;
-  transform: translateY(-2px);
+  background: #343a40;
 }
 
 /* Pagination */

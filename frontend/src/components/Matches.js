@@ -213,7 +213,7 @@ const Matches = () => {
         <button className="back-button-header" onClick={() => navigate('/dashboard')}>
           ← Zurück zum Dashboard
         </button>
-        <h2>⚽ Spiele</h2>
+        <h2>Spiele</h2>
         <p>Finde und analysiere Fußballspiele</p>
       </div>
 

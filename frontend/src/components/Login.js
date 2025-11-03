@@ -31,7 +31,8 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-box">
-        <h2>Login Betfinder 2.0</h2>
+        <img src="/logo-betfinder.png" alt="Betfinder" className="auth-logo" />
+        <h2>Login</h2>
         <p className="auth-subtitle">Willkommen zurück!</p>
         
         {error && <div className="error-message">{error}</div>}

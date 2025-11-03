@@ -89,9 +89,9 @@ const AdminLogs = () => {
         <button className="btn-back" onClick={() => navigate('/dashboard')}>
           ← Zurück zum Dashboard
         </button>
-        <h1>📋 Activity Logs</h1>
+        <h1>Activity Logs</h1>
         <button className="btn-export" onClick={exportToCSV}>
-          📥 Als CSV exportieren
+          Als CSV exportieren
         </button>
       </div>
 
@@ -105,14 +105,14 @@ const AdminLogs = () => {
           className="filter-select"
         >
           <option value="all">Alle Aktionen</option>
-          <option value="LOGIN">✅ Login</option>
-          <option value="LOGIN_FAILED">❌ Login fehlgeschlagen</option>
-          <option value="REGISTER">📝 Registrierung</option>
-          <option value="AI_QUERY">🤖 KI-Anfrage</option>
-          <option value="USER_EDIT">✏️ User bearbeitet</option>
-          <option value="USER_STATUS_CHANGE">🔄 Status geändert</option>
-          <option value="PROFILE_UPDATE">👤 Profil aktualisiert</option>
-          <option value="PASSWORD_CHANGE">🔒 Passwort geändert</option>
+          <option value="LOGIN">Login</option>
+          <option value="LOGIN_FAILED">Login fehlgeschlagen</option>
+          <option value="REGISTER">Registrierung</option>
+          <option value="AI_QUERY">KI-Anfrage</option>
+          <option value="USER_EDIT">User bearbeitet</option>
+          <option value="USER_STATUS_CHANGE">Status geändert</option>
+          <option value="PROFILE_UPDATE">Profil aktualisiert</option>
+          <option value="PASSWORD_CHANGE">Passwort geändert</option>
         </select>
 
         <div className="date-filters">
@@ -176,7 +176,7 @@ const AdminLogs = () => {
                       </td>
                       <td>
                         <span className={`badge badge-${badge.color}`}>
-                          {badge.emoji} {badge.text}
+                          {badge.text}
                         </span>
                       </td>
                       <td className="details-cell">

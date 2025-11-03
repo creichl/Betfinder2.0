@@ -39,6 +39,7 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <nav className="navbar">
         <div className="navbar-content">
+          <img src="/logo-betfinder.png" alt="Betfinder" className="navbar-logo" />
           <h1>Betfinder 2.0</h1>
           <div className="navbar-actions">
             <button 
@@ -56,7 +57,7 @@ const Dashboard = () => {
 
       <div className="dashboard-content">
         <div className="welcome-section">
-          <h2>Willkommen, {user?.firstName || user?.username}! 👋</h2>
+          <h2>Willkommen, {user?.firstName || user?.username}! </h2>
           <p className="welcome-text">
             Schön, dass du da bist. Hier ist dein Dashboard für Betfinder 2.0.
           </p>
