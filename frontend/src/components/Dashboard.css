@@ -1,0 +1,216 @@
+/* Dashboard.css */
+
+.dashboard-container {
+  min-height: 100vh;
+  background: var(--gray-50);
+}
+
+.navbar {
+  background: white;
+  box-shadow: var(--shadow-sm);
+  padding: 0;
+}
+
+.navbar-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar h1 {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--gray-900);
+}
+
+.navbar-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.btn-secondary {
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: var(--primary-red);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.btn-secondary:hover {
+  background: var(--primary-red-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-logout {
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: var(--gray-600);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.btn-logout:hover {
+  background: var(--gray-700);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+.welcome-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.welcome-section h2 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--gray-900);
+}
+
+.welcome-text {
+  color: var(--gray-600);
+  font-size: var(--text-base);
+  margin: 0;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.info-card {
+  background: white;
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+  border: 1px solid var(--gray-100);
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--gray-200);
+}
+
+.card-icon {
+  font-size: 48px;
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
+}
+
+.info-card h3 {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--gray-900);
+  text-align: center;
+}
+
+.card-details {
+  margin-bottom: var(--spacing-md);
+}
+
+.card-details p {
+  margin: var(--spacing-xs) 0;
+  color: var(--gray-700);
+  font-size: var(--text-sm);
+}
+
+.card-details strong {
+  color: var(--gray-900);
+  font-weight: var(--font-semibold);
+}
+
+.btn-action {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-sm);
+  margin: var(--spacing-xs) 0;
+  background: var(--gray-50);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: var(--transition-base);
+  text-align: left;
+  color: var(--gray-900);
+  font-weight: var(--font-medium);
+}
+
+.btn-action:hover {
+  background: var(--primary-red);
+  color: white;
+  border-color: var(--primary-red);
+  transform: translateX(5px);
+}
+
+.feature-preview {
+  background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-red-dark) 100%);
+  color: white;
+  border: none;
+}
+
+.feature-preview h3 {
+  color: white;
+}
+
+.feature-preview .card-details p {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: var(--text-sm);
+}
+
+.feature-preview .card-details strong {
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-content {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    text-align: center;
+    padding: var(--spacing-md);
+  }
+
+  .navbar h1 {
+    font-size: var(--text-lg);
+  }
+
+  .navbar-actions {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .dashboard-content {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .welcome-section h2 {
+    font-size: var(--text-xl);
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
