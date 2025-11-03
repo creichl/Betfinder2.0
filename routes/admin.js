@@ -79,6 +79,76 @@ router.get('/users', async (req, res) => {
 });
 
 // ==========================================
+// POST /api/admin/users - Neuen User erstellen
+// ==========================================
+router.post('/users', async (req, res) => {
+  try {
+    const { username, email, password, firstName, lastName, role } = req.body;
+
+    // Validierung
+    if (!username || !email || !password) {
+      return res.status(400).json({ error: 'Username, Email und Passwort sind erforderlich' });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({ error: 'Passwort muss mindestens 6 Zeichen lang sein' });
+    }
+
+    // Prüfe ob Username oder Email bereits existiert
+    const existing = await pool.query(
+      'SELECT id FROM users WHERE email = $1 OR username = $2',
+      [email, username]
+    );
+
+    if (existing.rows.length > 0) {
+      return res.status(400).json({ error: 'Email oder Username bereits vergeben' });
+    }
+
+    // Hash Password
+    const bcrypt = require('bcryptjs');
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    // Erstelle User
+    const result = await pool.query(
+      `INSERT INTO users (username, email, password_hash, first_name, last_name, role, status, is_active)
+       VALUES ($1, $2, $3, $4, $5, $6, 'active', true)
+       RETURNING id, username, email, first_name, last_name, role, status, is_active, created_at`,
+      [username, email, passwordHash, firstName || null, lastName || null, role || 'user']
+    );
+
+    const newUser = result.rows[0];
+
+    // Log User-Erstellung
+    await logActivity(
+      req.user.userId,
+      ACTION_TYPES.USER_EDIT,
+      `Created new user ${username} (ID: ${newUser.id})`,
+      req.clientIp
+    );
+
+    res.status(201).json({
+      message: 'User erfolgreich erstellt',
+      user: {
+        id: newUser.id,
+        username: newUser.username,
+        email: newUser.email,
+        firstName: newUser.first_name,
+        lastName: newUser.last_name,
+        role: newUser.role,
+        status: newUser.status,
+        isActive: newUser.is_active,
+        createdAt: newUser.created_at
+      }
+    });
+
+  } catch (error) {
+    console.error('Create User Error:', error);
+    res.status(500).json({ error: 'Fehler beim Erstellen des Users' });
+  }
+});
+
+// ==========================================
 // PUT /api/admin/users/:id - User bearbeiten
 // ==========================================
 router.put('/users/:id', async (req, res) => {

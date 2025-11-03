@@ -14,6 +14,15 @@ const AdminUsers = () => {
   const [pagination, setPagination] = useState(null);
   const [editingUser, setEditingUser] = useState(null);
   const [editForm, setEditForm] = useState({});
+  const [creatingUser, setCreatingUser] = useState(false);
+  const [createForm, setCreateForm] = useState({
+    username: '',
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    role: 'user'
+  });
 
   useEffect(() => {
     loadUsers();
@@ -62,6 +71,26 @@ const AdminUsers = () => {
     }
   };
 
+  const handleCreateUser = async () => {
+    try {
+      await adminAPI.createUser(createForm);
+      alert('User erfolgreich erstellt');
+      setCreatingUser(false);
+      setCreateForm({
+        username: '',
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+        role: 'user'
+      });
+      loadUsers();
+    } catch (error) {
+      console.error('Fehler beim Erstellen:', error);
+      alert('Fehler beim Erstellen: ' + (error.response?.data?.error || error.message));
+    }
+  };
+
   const handleDeactivate = async (user) => {
     if (!window.confirm(`User "${user.username}" wirklich deaktivieren?`)) {
       return;
@@ -89,6 +118,9 @@ const AdminUsers = () => {
           ← Zurück zum Dashboard
         </button>
         <h1>👥 User-Verwaltung</h1>
+        <button className="btn-create" onClick={() => setCreatingUser(true)}>
+          ➕ Neuer User
+        </button>
       </div>
 
       <div className="admin-filters">
@@ -271,6 +303,95 @@ const AdminUsers = () => {
               </button>
               <button className="btn-save" onClick={handleSaveEdit}>
                 Speichern
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Create User Modal */}
+      {creatingUser && (
+        <div className="modal-overlay" onClick={() => setCreatingUser(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>➕ Neuen User erstellen</h2>
+            
+            <div className="form-group">
+              <label>Username *</label>
+              <input
+                type="text"
+                value={createForm.username}
+                onChange={(e) => setCreateForm({...createForm, username: e.target.value})}
+                placeholder="Username"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Email *</label>
+              <input
+                type="email"
+                value={createForm.email}
+                onChange={(e) => setCreateForm({...createForm, email: e.target.value})}
+                placeholder="email@example.com"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Passwort * (mindestens 6 Zeichen)</label>
+              <input
+                type="password"
+                value={createForm.password}
+                onChange={(e) => setCreateForm({...createForm, password: e.target.value})}
+                placeholder="••••••••"
+                style={createForm.password && createForm.password.length < 6 ? {borderColor: '#f44336'} : {}}
+              />
+              {createForm.password && createForm.password.length < 6 && (
+                <small style={{color: '#f44336', fontSize: '12px', marginTop: '4px', display: 'block'}}>
+                  ⚠️ Passwort muss mindestens 6 Zeichen lang sein (aktuell: {createForm.password.length})
+                </small>
+              )}
+            </div>
+
+            <div className="form-group">
+              <label>Vorname</label>
+              <input
+                type="text"
+                value={createForm.firstName}
+                onChange={(e) => setCreateForm({...createForm, firstName: e.target.value})}
+                placeholder="Optional"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Nachname</label>
+              <input
+                type="text"
+                value={createForm.lastName}
+                onChange={(e) => setCreateForm({...createForm, lastName: e.target.value})}
+                placeholder="Optional"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Rolle</label>
+              <select
+                value={createForm.role}
+                onChange={(e) => setCreateForm({...createForm, role: e.target.value})}
+              >
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+
+            <div className="modal-actions">
+              <button className="btn-cancel" onClick={() => setCreatingUser(false)}>
+                Abbrechen
+              </button>
+              <button 
+                className="btn-save" 
+                onClick={handleCreateUser}
+                disabled={!createForm.username || !createForm.email || !createForm.password || createForm.password.length < 6}
+              >
+                User erstellen
               </button>
             </div>
           </div>

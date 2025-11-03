@@ -42,7 +42,8 @@
   transform: translateY(-2px);
 }
 
-.btn-export {
+.btn-export,
+.btn-create {
   padding: 10px 20px;
   background: #4CAF50;
   color: white;
@@ -54,7 +55,8 @@
   transition: all 0.2s;
 }
 
-.btn-export:hover {
+.btn-export:hover,
+.btn-create:hover {
   background: #45a049;
   transform: translateY(-2px);
 }
